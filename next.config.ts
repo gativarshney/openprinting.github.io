@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   output: "export",
   basePath: isProd ? "/openprinting.github.io" : "",
   assetPrefix: isProd ? "/openprinting.github.io/" : "",
+  trailingSlash: true,
   images: { unoptimized: true },
 };
 
