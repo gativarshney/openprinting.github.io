@@ -13,7 +13,6 @@ export default function Home() {
       <NewsSection posts={latestPosts} />
       <InfoSection />
       <ProjectsSection />
-      <Footer />
     </main>
   )
 }
