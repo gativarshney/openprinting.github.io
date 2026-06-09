@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button"
 import { withBasePath } from "@/lib/foomatic/base-path"
 import type { Printer } from "@/lib/foomatic/types"
 import { calculateAccurateStatus } from "@/lib/foomatic/utils"
+import RecommendedPrintersSection from "@/components/foomatic/RecommendedPrintersSection"
 
 interface PrinterPageClientProps {
   printerId: string
@@ -301,6 +302,7 @@ export default function PrinterPageClient({ printerId }: PrinterPageClientProps)
             ))}
           </section>
         </div>
+        <RecommendedPrintersSection printerId={printer.id} />
       </FoomaticPageSection>
     </main>
   )
