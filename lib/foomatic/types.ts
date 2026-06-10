@@ -46,6 +46,8 @@ export interface Printer {
   color?: boolean | "unknown"
   duplex?: boolean | "unknown"
   recommended?: boolean
+  psLevel?: number | null
+  pclLevel?: number | null
 }
 
 export type PrinterStatus = 'Perfect' | 'Mostly' | 'Unsupported' | 'Unknown'
