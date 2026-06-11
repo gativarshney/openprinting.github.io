@@ -213,6 +213,44 @@ export default function PrinterPageClient({ printerId }: PrinterPageClientProps)
                     <FoomaticStatusBadge status={status} />
                   </dd>
                 </div>
+                {printer.color !== "unknown" && printer.color !== undefined ? (
+                  <div>
+                    <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      Color
+                    </dt>
+                    <dd className="mt-2 text-sm text-foreground">
+                      {printer.color === true ? "Color" : "Monochrome"}
+                    </dd>
+                  </div>
+                ) : null}
+                {printer.maxDpi != null ? (
+                  <div>
+                    <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      Max resolution
+                    </dt>
+                    <dd className="mt-2 text-sm text-foreground">{printer.maxDpi} dpi</dd>
+                  </div>
+                ) : null}
+                {printer.psLevel != null ? (
+                  <div>
+                    <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      PostScript
+                    </dt>
+                    <dd className="mt-2 text-sm text-foreground">
+                      {printer.psLevel === 0 ? "Supported" : `Level ${printer.psLevel}`}
+                    </dd>
+                  </div>
+                ) : null}
+                {printer.pclLevel != null ? (
+                  <div>
+                    <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                      PCL
+                    </dt>
+                    <dd className="mt-2 text-sm text-foreground">
+                      {printer.pclLevel === 0 ? "Supported" : `Level ${printer.pclLevel}`}
+                    </dd>
+                  </div>
+                ) : null}
               </dl>
 
               {printer.notes ? (
