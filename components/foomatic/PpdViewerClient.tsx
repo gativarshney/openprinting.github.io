@@ -24,7 +24,7 @@ function getDownloadName(path: string) {
 
 export default function PpdViewerClient() {
   const searchParams = useSearchParams()
-  const requestedPath = searchParams.get("path")
+  const requestedPath = searchParams?.get("path") ?? null
   const normalizedPath = useMemo(
     () => (isValidPpdPath(requestedPath) ? requestedPath : null),
     [requestedPath]
