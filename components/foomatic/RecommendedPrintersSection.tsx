@@ -15,10 +15,6 @@ interface Recommendation {
   sharedFeatures: string[]
 }
 
-interface RecommendationsData {
-  recommendations: Record<string, Recommendation[]>
-}
-
 interface PrinterSummary {
   id: string
   manufacturer: string
@@ -48,23 +44,21 @@ export default function RecommendedPrintersSection({
       try {
         const [recommendationsResponse, printersMapResponse] =
           await Promise.all([
-            fetch("/foomatic-db/recommendations.json"),
+            fetch(`/foomatic-db/recommendations/${printerId}.json`),
             fetch("/foomatic-db/printersMap.json"),
           ])
 
-        if (!recommendationsResponse.ok || !printersMapResponse.ok) {
+        if (!printersMapResponse.ok) {
           return
         }
-
-        const recommendationsData: RecommendationsData =
-          await recommendationsResponse.json()
 
         const printersMapData: PrintersMapData =
           await printersMapResponse.json()
 
-        setRecommendations(
-          recommendationsData.recommendations?.[printerId]?.slice(0, 3) ?? []
-        )
+        if (recommendationsResponse.ok) {
+          const recs: Recommendation[] = await recommendationsResponse.json()
+          setRecommendations(recs.slice(0, 3))
+        }
 
         setPrinterMap(
           new Map(
