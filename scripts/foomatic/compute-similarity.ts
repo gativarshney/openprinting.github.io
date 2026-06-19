@@ -3,7 +3,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import type { Printer } from "../../lib/foomatic/types";
 import {
-  normalizeDriverFamily,
   getRecommendedDriverFamily,
   getSupportedDriverFamilies,
 } from "../../lib/foomatic/driver-family";

@@ -2,6 +2,12 @@
 // foomatic-db XML (already parsed to JSON). Shared between
 // scripts/foomatic/combine-data.ts and its test suite.
 
+// Raw printer XML, already parsed to JSON by fast-xml-parser. Shape varies
+// freely per upstream entry and is accessed via deep optional-chained
+// property paths below, so it is intentionally untyped at this boundary.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RawXmlNode = any
+
 export function getText(value: unknown): string | undefined {
   if (value === undefined || value === null) {
     return undefined
@@ -58,7 +64,7 @@ export function getFunctionalityStatus(func: string | undefined): string {
   }
 }
 
-export function getPrinterType(printer: any): string {
+export function getPrinterType(printer: RawXmlNode): string {
   if (!printer.mechanism) {
     return "unknown"
   }
@@ -112,7 +118,7 @@ export function normalizeCommandsetToken(raw: string): string | null {
   return u
 }
 
-export function getCommandsets(printer: any): string[] {
+export function getCommandsets(printer: RawXmlNode): string[] {
   const a = printer.autodetect
   if (!a) return []
 
@@ -169,7 +175,7 @@ export function getBooleanCapability(value: unknown): boolean | "unknown" {
   return "unknown"
 }
 
-export function getColorCapability(printer: any): boolean | "unknown" {
+export function getColorCapability(printer: RawXmlNode): boolean | "unknown" {
   if (printer.mechanism && "color" in printer.mechanism) {
     return true
   }
@@ -183,7 +189,7 @@ export function getColorCapability(printer: any): boolean | "unknown" {
   )
 }
 
-export function getMaxDpi(printer: any): number | null {
+export function getMaxDpi(printer: RawXmlNode): number | null {
   const dpi = printer.mechanism?.resolution?.dpi
   if (!dpi) return null
   const x = Number(dpi.x ?? dpi["@x"] ?? 0)
@@ -192,7 +198,7 @@ export function getMaxDpi(printer: any): number | null {
   return max > 0 ? max : null
 }
 
-export function getPSLevel(printer: any): number | null {
+export function getPSLevel(printer: RawXmlNode): number | null {
   const ps = printer.lang?.postscript
   if (ps === undefined) return null
   const raw = typeof ps === "object" && ps !== null ? ps["@level"] ?? ps.level ?? "" : String(ps)
@@ -204,7 +210,7 @@ export function getPSLevel(printer: any): number | null {
   return 0
 }
 
-export function getPCLLevel(printer: any): number | null {
+export function getPCLLevel(printer: RawXmlNode): number | null {
   const pcl = printer.lang?.pcl
   if (pcl === undefined) return null
   const raw =

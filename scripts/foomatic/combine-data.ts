@@ -6,7 +6,6 @@ import {
   getText,
   getFunctionalityStatus,
   getPrinterType,
-  normalizeCommandsetToken,
   getCommandsets,
   getBooleanCapability,
   getColorCapability,
