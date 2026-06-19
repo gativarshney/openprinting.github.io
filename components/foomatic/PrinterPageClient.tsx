@@ -20,6 +20,7 @@ import {
 } from "@/components/foomatic/shared"
 import { Button } from "@/components/ui/button"
 import { withBasePath } from "@/lib/foomatic/base-path"
+import { sanitizeFoomaticHtml } from "@/lib/foomatic/sanitize"
 import type { Printer } from "@/lib/foomatic/types"
 import { calculateAccurateStatus } from "@/lib/foomatic/utils"
 import RecommendedPrintersSection from "@/components/foomatic/RecommendedPrintersSection"
@@ -285,7 +286,7 @@ export default function PrinterPageClient({ printerId }: PrinterPageClientProps)
                   </h3>
                   <div
                     className="prose prose-sm mt-4 max-w-none text-foreground dark:prose-invert"
-                    dangerouslySetInnerHTML={{ __html: printer.notes }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeFoomaticHtml(printer.notes) }}
                   />
                 </div>
               ) : null}
@@ -337,7 +338,9 @@ export default function PrinterPageClient({ printerId }: PrinterPageClientProps)
                 <div
                   className="prose prose-sm mt-5 max-w-none text-foreground dark:prose-invert"
                   dangerouslySetInnerHTML={{
-                    __html: driver.comments || "No additional notes are available for this driver.",
+                    __html: sanitizeFoomaticHtml(
+                      driver.comments || "No additional notes are available for this driver."
+                    ),
                   }}
                 />
 
